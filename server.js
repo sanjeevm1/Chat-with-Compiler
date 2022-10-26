@@ -2,8 +2,12 @@ const express=require('express');
 const axios=require('axios');
 const {Telegraf}=require('telegraf');
 
+
 const app=express();
-const bot=new Telegraf("5710330158:AAFhDx8HW75OqbCCqzp_ogjtmTJTaguBAG4",{polling:true});
+app.use(express.static("BOT"));
+
+require('dotenv').config({path:__dirname+"/.env"});
+const bot=new Telegraf(process.env.BOT_TOKEN,{polling:true});
 
 app.listen(process.env.PORT || 5000,()=>{
     console.log("listened");
