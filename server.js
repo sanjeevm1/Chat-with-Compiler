@@ -55,7 +55,7 @@ bot.on("text",(msg)=>{
         axios.post("https://codex-api.herokuapp.com/",{code:code,language:obj[id].lang,input:obj[id].input}).then((out)=>{
             send.sendMessage(id,"output:\n"+((out.data.output==undefined)?out.data.error:out.data.output));
         }).catch((err)=>{
-            console.log(err);
+            send.sendMessage(id,"Internal compiler api is shut down")
         });
 
         delete obj[id];
