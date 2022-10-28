@@ -15,7 +15,7 @@ app.listen(process.env.PORT || 5000,()=>{
 
 
 
-let support=["java","js","py","c","cpp","go","cs"]
+let support=["Python","Java","Javascript","C"]
 
 let obj={};
 let send=bot.telegram;
@@ -52,8 +52,12 @@ bot.on("text",(msg)=>{
         code=msg.message.text.trim();obj[id].flag=0;
         console.log("hello");
 
-        axios.post("https://codex-api.herokuapp.com/",{code:code,language:obj[id].lang,input:obj[id].input}).then((out)=>{
-            send.sendMessage(id,"output:\n"+((out.data.output==undefined)?out.data.error:out.data.output));
+        axios.post("https://app-decoder.herokuapp.com/api/code/compile",{content:code,language:obj[id].lang,stdin:obj[id].input}).then((out)=>{
+            
+            let error=out.data.result.stderr;
+            let output=out.data.result.stdout;
+
+            send.sendMessage(id,"Error : "+error+"\noutput : "+output);
         }).catch((err)=>{
             send.sendMessage(id,"Internal compiler api is shut down")
         });
@@ -62,7 +66,7 @@ bot.on("text",(msg)=>{
     }
 
     else{
-    send.sendMessage(id,"Hi "+userName+" choose your language to compile\n1)java\n2)c\n3)cpp\n4)py\n5)js\n6)go(goLang)\n7)cs(C#)");
+    send.sendMessage(id,"Hi "+userName+" choose your language to compile\n1)Python\n2)Java\n3)Javscript\n4)C");
     obj[id].flag=1;}
 })
 
