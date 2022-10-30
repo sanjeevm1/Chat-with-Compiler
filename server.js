@@ -57,7 +57,7 @@ bot.on("text",(msg)=>{
             let error=out.data.result.stderr;
             let output=out.data.result.stdout;
 
-            send.sendMessage(id,"Error : "+error+"\noutput : "+output);
+            send.sendMessage(id,"Error : \n"+error+"\noutput : \n"+output);
         }).catch((err)=>{
             send.sendMessage(id,"Internal compiler api is shut down")
         });
